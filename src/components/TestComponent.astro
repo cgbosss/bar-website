@@ -1,0 +1,52 @@
+---
+// Test component with SCSS styling
+---
+
+<div class="test-container">
+  <h2 class="test-title">Test Component</h2>
+  <p class="test-text">This is a test component with SCSS styling</p>
+  <button class="test-button">Click me!</button>
+</div>
+
+<style lang="scss">
+  .test-container {
+    padding: 2rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 12px;
+    margin: 2rem 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+    .test-title {
+      color: #fff;
+      margin-top: 0;
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+
+    .test-text {
+      color: #f0f0f0;
+      margin: 0.5rem 0 1rem 0;
+    }
+
+    .test-button {
+      background-color: #fff;
+      color: #667eea;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+
+      &:hover {
+        transform: scale(1.05);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+      }
+
+      &:active {
+        transform: scale(0.98);
+      }
+    }
+  }
+</style>

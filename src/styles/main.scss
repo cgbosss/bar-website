@@ -1,0 +1,166 @@
+// Color Variables
+$primary-color: #667eea;
+$secondary-color: #764ba2;
+$accent-color: #f0f0f0;
+$dark-bg: #1a1a1a;
+$light-bg: #f5f5f5;
+$text-color: #333;
+
+// Spacing
+$spacing-sm: 0.5rem;
+$spacing-md: 1rem;
+$spacing-lg: 2rem;
+$spacing-xl: 3rem;
+
+// Border Radius
+$border-radius-sm: 4px;
+$border-radius-md: 8px;
+$border-radius-lg: 12px;
+
+// Transitions
+$transition-fast: 0.2s ease;
+$transition-normal: 0.3s ease;
+$transition-slow: 0.5s ease;
+
+// Mixins
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin gradient-bg {
+  background: linear-gradient(135deg, $primary-color 0%, $secondary-color 100%);
+}
+
+@mixin shadow-sm {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+@mixin shadow-md {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
+}
+
+@mixin shadow-lg {
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+@mixin button-base {
+  border: none;
+  padding: $spacing-md $spacing-lg;
+  border-radius: $border-radius-md;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all $transition-normal;
+}
+
+// Global Styles
+body {
+  font-family: system-ui, -apple-system, sans-serif;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: $spacing-lg;
+  background-color: $light-bg;
+  color: $text-color;
+  line-height: 1.6;
+}
+
+// Header Styles
+h1 {
+  font-size: 2.5rem;
+  margin: $spacing-lg 0 $spacing-md 0;
+  @include gradient-bg;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+h2 {
+  font-size: 1.75rem;
+  margin: $spacing-lg 0 $spacing-md 0;
+  color: $primary-color;
+}
+
+p {
+  margin: $spacing-md 0;
+}
+
+// Link Styles
+a {
+  color: $primary-color;
+  text-decoration: none;
+  transition: color $transition-fast;
+
+  &:hover {
+    color: $secondary-color;
+    text-decoration: underline;
+  }
+}
+
+// Navigation Links Container
+.nav-links {
+  margin: $spacing-lg 0;
+  padding: $spacing-md;
+  background: white;
+  border-radius: $border-radius-md;
+  @include shadow-sm;
+  display: flex;
+  gap: $spacing-md;
+  flex-wrap: wrap;
+
+  a {
+    display: inline-block;
+    padding: $spacing-sm $spacing-md;
+    background-color: $primary-color;
+    color: white;
+    border-radius: $border-radius-sm;
+    text-decoration: none;
+    transition: all $transition-normal;
+
+    &:hover {
+      background-color: $secondary-color;
+      @include shadow-md;
+      transform: translateY(-2px);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+  }
+}
+
+// Container Classes
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.card {
+  background: white;
+  border-radius: $border-radius-lg;
+  padding: $spacing-lg;
+  @include shadow-md;
+  transition: all $transition-normal;
+
+  &:hover {
+    @include shadow-lg;
+    transform: translateY(-4px);
+  }
+}
+
+// Utility Classes
+.text-center {
+  text-align: center;
+}
+
+.mt-sm { margin-top: $spacing-sm; }
+.mt-md { margin-top: $spacing-md; }
+.mt-lg { margin-top: $spacing-lg; }
+
+.mb-sm { margin-bottom: $spacing-sm; }
+.mb-md { margin-bottom: $spacing-md; }
+.mb-lg { margin-bottom: $spacing-lg; }
+
+.p-sm { padding: $spacing-sm; }
+.p-md { padding: $spacing-md; }
+.p-lg { padding: $spacing-lg; }

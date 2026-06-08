@@ -12,6 +12,8 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^6.4.4"
+    "astro": "^5.0.0",
+    "@astrojs/mdx": "^4.2.0",
+    "sass": "^1.77.0"
   }
 }

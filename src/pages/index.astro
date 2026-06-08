@@ -1,5 +1,6 @@
 ---
-
+import TestComponent from '../components/TestComponent.astro';
+import '../styles/main.scss';
 ---
 
 <html lang="en">
@@ -9,9 +10,33 @@
 		<link rel="icon" href="/favicon.ico" />
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
+		<title>Game Marketing - Astro Website</title>
 	</head>
 	<body>
-		<h1>Astro</h1>
+		<h1>🎮 Game Marketing Site</h1>
+		<p>Welcome to your Astro game marketing website built with Astro, MDX, and SCSS modules!</p>
+		
+		<div class="nav-links">
+			<a href="/test/">📄 Visit Test Page</a>
+			<a href="#about">📚 About</a>
+			<a href="#contact">💬 Contact</a>
+		</div>
+		
+		<div class="card mt-lg">
+			<h2>About This Project</h2>
+			<p>This is a modern game marketing website built with:</p>
+			<ul>
+				<li><strong>Astro 5</strong> - Fast static site generator</li>
+				<li><strong>MDX</strong> - Markdown with JSX components</li>
+				<li><strong>SCSS</strong> - Advanced CSS with variables, mixins, and nesting</li>
+			</ul>
+		</div>
+		
+		<TestComponent />
+		
+		<div class="card mt-lg text-center">
+			<h2>Ready to Get Started?</h2>
+			<p>Run <code>npm run dev</code> to start the development server!</p>
+		</div>
 	</body>
 </html>
