@@ -1,0 +1,41 @@
+---
+import styles from './NavHeader.module.scss';
+import SubscribeButton from './SubscribeButton.astro';
+import SoundToggle from './SoundToggle.astro';
+---
+
+<nav class={styles.navHeader} aria-label="Main navigation">
+  <div class={styles.navHeaderInner}>
+    <a class={styles.navHeaderBrand} href="/">
+      <span class={styles.navHeaderBrandMark}>BAR</span>
+    </a>
+
+
+    <!-- Mobile nav toggle -->
+    <input type="checkbox" id="nav-toggle" class={styles.navToggle} aria-label="Toggle navigation" />
+    <div class={styles.navHeaderToggleContainer}>
+        <div class={styles.navSoundIconMobile}>
+            <SoundToggle />
+        </div>
+      <div class={styles.navHeaderMobileSubscribe}>
+        <SubscribeButton />
+      </div>
+      <label for="nav-toggle" class={styles.navToggleButton} aria-hidden="true">
+        <span></span>
+        <span></span>
+        <span></span>
+      </label>
+    </div>
+
+    <div class={styles.navHeaderLinksWrapper}>
+      <div class={styles.navHeaderNavLinks}>
+        <a href="#feature1">Feature 1</a>
+        <a href="#feature2">Feature 2</a>
+        <a href="#feature3">Feature 3</a>
+      </div>
+      <div class={styles.navHeaderDesktopSubscribe}>
+        <SubscribeButton />
+      </div>
+    </div>
+  </div>
+</nav>

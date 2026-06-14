@@ -1,0 +1,39 @@
+---
+import styles from './SoundToggle.module.scss';
+import soundSrc from '../media/the_mountain-corporate-522454.mp3';
+---
+
+<button class={styles.soundButton} type="button" aria-pressed="false" aria-label="Toggle sound">
+  <span class={styles.soundIcon} aria-hidden="true">♪</span>
+  <span class={styles.soundLabel}>Sound</span>
+</button>
+
+<script type="module" client:load>
+  const button = document.currentScript.closest('button');
+  const soundUrl = ${JSON.stringify(soundSrc)};
+  const activeClass = ${JSON.stringify(styles.soundButtonActive)};
+  let audio;
+  let isPlaying = false;
+
+  if (button) {
+    audio = new Audio(soundUrl);
+    audio.loop = true;
+    const label = button.querySelector('span:last-child');
+
+    button.addEventListener('click', () => {
+      if (!audio) return;
+      isPlaying = !isPlaying;
+      button.setAttribute('aria-pressed', String(isPlaying));
+      button.classList.toggle(activeClass, isPlaying);
+      if (label) label.textContent = isPlaying ? 'Sound On' : 'Sound Off';
+
+      if (isPlaying) {
+        audio.play().catch(() => {
+          // user gesture required or audio load failed
+        });
+      } else {
+        audio.pause();
+      }
+    });
+  }
+</script>
