@@ -1,39 +1,93 @@
 ---
 import styles from './SoundToggle.module.scss';
-import soundSrc from '../media/the_mountain-corporate-522454.mp3';
+import soundOnIcon from '../images/sound_max_fill.svg?url';
+import soundOffIcon from '../images/sound_min_fill.svg?url';
+const soundUrl = '/audio/the_mountain-corporate-522454.mp3';
 ---
+<!-- Sound Toggle Component
+Audio starts playing automatically when the component is loaded. 
+The button allows users to toggle the sound on and off. 
+The button's icon and ARIA attributes update based on the current state of the audio player. 
+add Muted to the audio tag for development to prevent auto-playing sound during development.
+-->
+<div class={styles.soundToggleWrapper}>
+  <audio id="sound-player" class={styles.soundAudio} data-sound-player preload="auto" autoplay loop muted>
+    <source src={soundUrl} type="audio/mpeg" />
+    Your browser does not support the audio element.
+  </audio>
 
-<button class={styles.soundButton} type="button" aria-pressed="false" aria-label="Toggle sound">
-  <span class={styles.soundIcon} aria-hidden="true">♪</span>
-  <span class={styles.soundLabel}>Sound</span>
-</button>
 
-<script type="module" client:load>
-  const button = document.currentScript.closest('button');
-  const soundUrl = ${JSON.stringify(soundSrc)};
-  const activeClass = ${JSON.stringify(styles.soundButtonActive)};
-  let audio;
-  let isPlaying = false;
+  <button
+    id="sound-toggle-button"
+    class={styles.soundButton}
+    type="button"
+    data-sound-on={soundOnIcon}
+    data-sound-off={soundOffIcon}
+    data-active-class={styles.soundButtonActive}
 
-  if (button) {
-    audio = new Audio(soundUrl);
-    audio.loop = true;
-    const label = button.querySelector('span:last-child');
+  >
+    <img class={styles.soundIcon} src={soundOnIcon} alt="Sound on icon" aria-hidden="true" id="sound-toggle-icon" />
+    <!--The label is visually hidden but can be used for screen readers or future enhancements.-->
+    <span class={styles.soundLabel} id="sound-toggle-label"></span>
+  </button>
+</div>
 
-    button.addEventListener('click', () => {
-      if (!audio) return;
-      isPlaying = !isPlaying;
+<script is:inline type="module">
+  const button = document.getElementById('sound-toggle-button');
+  const player = document.getElementById('sound-player');
+  if (!(button instanceof HTMLElement) || !(player instanceof HTMLAudioElement)) {
+    console.error('missing button');
+  } else {
+    //Code for Toggle the Sound Button.
+    console.log('button and player found', { button, player });
+
+    const icon = document.getElementById('sound-toggle-icon');
+    const label = document.getElementById('sound-toggle-label');
+    const soundOn = button.dataset.soundOn;
+    const soundOff = button.dataset.soundOff;
+    const activeClass = button.dataset.activeClass;
+
+    function updateButtonState() {
+      const isPlaying = !player.paused && !player.muted;
       button.setAttribute('aria-pressed', String(isPlaying));
-      button.classList.toggle(activeClass, isPlaying);
-      if (label) label.textContent = isPlaying ? 'Sound On' : 'Sound Off';
+      if (activeClass) button.classList.toggle(activeClass, isPlaying);
 
-      if (isPlaying) {
-        audio.play().catch(() => {
-          // user gesture required or audio load failed
-        });
-      } else {
-        audio.pause();
+      if (icon instanceof HTMLImageElement) {
+        icon.src = isPlaying ? soundOn : soundOff;
       }
-    });
+      //To update the label text based on the sound state, you can uncomment the following lines:
+      // if (label) {
+      //   label.textContent = isPlaying ? 'Sound On' : 'Sound Off';
+      // }
+    }
+
+    player.addEventListener('play', updateButtonState);
+    player.addEventListener('pause', updateButtonState);
+    player.addEventListener('volumechange', updateButtonState);
+
+    async function togglePlay() {
+      console.log('togglePlay called', { paused: player.paused, muted: player.muted });
+      if (player.paused) {
+        player.muted = false;
+        try {
+          await player.play();
+        } catch (error) {
+          console.error('[SoundToggle] play failed', error);
+        }
+      } else {
+        player.pause();
+        player.muted = true;
+      }
+      updateButtonState();
+    }
+
+    if (player.autoplay) {
+      player.play().then(() => updateButtonState()).catch(() => updateButtonState());
+    } else {
+      updateButtonState();
+    }
+
+    console.debug('[SoundToggle] initialized', { button, player });
+    button.addEventListener('click', togglePlay);
   }
 </script>
