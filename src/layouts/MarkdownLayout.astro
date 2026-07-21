@@ -4,6 +4,8 @@ interface Props {
 }
 
 const { frontmatter } = Astro.props;
+
+import NavHeader from '../components/NavHeader.astro';
 ---
 
 <!DOCTYPE html>
@@ -33,6 +35,7 @@ const { frontmatter } = Astro.props;
     </style>
   </head>
   <body>
+    <NavHeader />
     <a href="/">← Back to Home</a>
     <article>
       <slot />

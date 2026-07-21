@@ -1,0 +1,33 @@
+---
+import styles from './HeroImage.module.scss';
+
+interface Props {
+  src?: string;
+  videoSrc?: string;
+  alt?: string;
+  fullBleed?: boolean;
+}
+
+const { src, videoSrc, alt = '', fullBleed = false } = Astro.props;
+---
+
+<section
+  class:list={[styles.heroImage, fullBleed && styles.heroImageFullBleed]}
+  aria-label="Hero"
+>
+  {videoSrc ? (
+    <video
+      class={styles.heroImageMedia}
+      src={videoSrc}
+      autoplay
+      muted
+      loop
+      playsinline
+      aria-label={alt || 'Hero video'}
+    />
+  ) : src ? (
+    <img class={styles.heroImageMedia} src={src} alt={alt} />
+  ) : (
+    <div class={styles.heroImagePlaceholder} aria-hidden="true" />
+  )}
+</section>

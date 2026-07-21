@@ -1,7 +1,11 @@
 ---
 title: Test Markdown Page
 layout: ../layouts/MarkdownLayout.astro
+import: <NavHeader> from '../components/NavHeader.astro'
+catergiry: News
 ---
+
+<NavHeader />
 
 # Welcome to the Test Page
 
@@ -16,3 +20,7 @@ This is a test markdown page created to demonstrate Astro's markdown support.
 ## Content
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. This is a test page to showcase the power of Astro with markdown files.
+
+## Media
+
+![Bar Banner](../images/BAR-Image.png)
